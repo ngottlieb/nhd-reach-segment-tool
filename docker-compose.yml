@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+
+  flask:
+    build: ./flask
+    container_name: flask
+    restart: always
+    volumes:
+      - ./flask/app:/var/www/app:rw
+    environment:
+      - APP_NAME=MyFlaskApp
+    expose:
+      - 8080
+
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+
+  postgresql:
+    restart: always
+    image: postgres:latest
+    env_file: postgresql/.env
+    volumes:
+      - ./dockerfiles/pgdata:/var/lib/postgresql/data/pgdata:rw
+    ports:
+      - "5432"
