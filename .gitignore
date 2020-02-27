@@ -1,1 +1,4 @@
 dockerfiles/pgdata
+dockerfiles/nhd
+
+*.swp

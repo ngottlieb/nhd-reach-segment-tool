@@ -9,7 +9,7 @@ services:
     volumes:
       - ./flask/app:/var/www/app:rw
     environment:
-      - APP_NAME=MyFlaskApp
+      - APP_NAME=NHDDataService
     expose:
       - 8080
 
@@ -22,9 +22,10 @@ services:
 
   postgresql:
     restart: always
-    image: postgres:latest
-    env_file: postgresql/.env
+    build: ./postgresql
+    env_file: ./postgresql/.env
     volumes:
       - ./dockerfiles/pgdata:/var/lib/postgresql/data/pgdata:rw
+      - ./dockerfiles/nhd:/nhd/:rw
     ports:
       - "5432"
